@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "source": "Simulated UN Security Council Consolidated Sanctions List",
+    "description": "Addresses and entities subject to UN travel bans and asset freezes",
+    "last_updated": "2024-01-01",
+    "note": "This is synthetic data for academic demonstration only"
+  },
+  "blocked_addresses": [
+    "1111111100000000000000000000000000000000000000000000000000000001",
+    "1111111100000000000000000000000000000000000000000000000000000002",
+    "2222222200000000000000000000000000000000000000000000000000000001"
+  ],
+  "blocked_entities": [
+    {
+      "id": "UN-001",
+      "name": "FICTIONAL PROLIFERATOR F",
+      "address": "1111111100000000000000000000000000000000000000000000000000000001",
+      "reason": "WMD proliferation — UNSCR 1718",
+      "country": "KP"
+    },
+    {
+      "id": "UN-002",
+      "name": "FICTIONAL ARMED GROUP G",
+      "address": "1111111100000000000000000000000000000000000000000000000000000002",
+      "reason": "Arms embargo violation — UNSCR 2140",
+      "country": "YE"
+    },
+    {
+      "id": "UN-003",
+      "name": "FICTIONAL FINANCING ENTITY H",
+      "address": "2222222200000000000000000000000000000000000000000000000000000001",
+      "reason": "Terrorism financing — UNSCR 1267",
+      "country": "AF"
+    }
+  ],
+  "blocked_countries": [
+    {
+      "country_code": "KP",
+      "country_name": "North Korea",
+      "reason": "Comprehensive sanctions — UNSCR 2321",
+      "level": "comprehensive"
+    }
+  ]
+}

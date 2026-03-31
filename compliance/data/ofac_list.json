@@ -1,0 +1,52 @@
+{
+  "_meta": {
+    "source": "Simulated OFAC SDN List",
+    "description": "Office of Foreign Assets Control — Specially Designated Nationals",
+    "last_updated": "2024-01-01",
+    "note": "This is synthetic data for academic demonstration only"
+  },
+  "blocked_addresses": [
+    "deadbeef00000000000000000000000000000000000000000000000000000001",
+    "deadbeef00000000000000000000000000000000000000000000000000000002",
+    "deadbeef00000000000000000000000000000000000000000000000000000003",
+    "aabbccdd00000000000000000000000000000000000000000000000000000001",
+    "aabbccdd00000000000000000000000000000000000000000000000000000002"
+  ],
+  "blocked_entities": [
+    {
+      "id": "OFAC-001",
+      "name": "FICTIONAL SHELL CORP A",
+      "address": "deadbeef00000000000000000000000000000000000000000000000000000001",
+      "reason": "Money laundering — SDN List",
+      "country": "KP"
+    },
+    {
+      "id": "OFAC-002",
+      "name": "FICTIONAL FRONT ORG B",
+      "address": "deadbeef00000000000000000000000000000000000000000000000000000002",
+      "reason": "Terrorism financing — SDN List",
+      "country": "IR"
+    },
+    {
+      "id": "OFAC-003",
+      "name": "FICTIONAL NETWORK NODE C",
+      "address": "deadbeef00000000000000000000000000000000000000000000000000000003",
+      "reason": "Sanctions evasion — SDN List",
+      "country": "SY"
+    },
+    {
+      "id": "OFAC-004",
+      "name": "FICTIONAL CARTEL ENTITY D",
+      "address": "aabbccdd00000000000000000000000000000000000000000000000000000001",
+      "reason": "Drug trafficking proceeds — SDN List",
+      "country": "VE"
+    },
+    {
+      "id": "OFAC-005",
+      "name": "FICTIONAL CYBER ACTOR E",
+      "address": "aabbccdd00000000000000000000000000000000000000000000000000000002",
+      "reason": "Malicious cyber activity — SDN List",
+      "country": "RU"
+    }
+  ]
+}

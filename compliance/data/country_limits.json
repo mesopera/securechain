@@ -1,0 +1,82 @@
+{
+  "_meta": {
+    "description": "Transfer limits per country-pair corridor in USD equivalent",
+    "note": "Based on illustrative AML/CFT regulatory thresholds",
+    "currency": "USD"
+  },
+  "global_defaults": {
+    "daily_limit_per_sender": 50000,
+    "single_tx_limit": 25000,
+    "hourly_tx_count_limit": 10,
+    "daily_tx_count_limit": 50
+  },
+  "high_risk_countries": ["IR", "KP", "SY", "CU", "VE", "MM", "BY"],
+  "corridors": {
+    "US-IN": {
+      "single_tx_limit": 25000,
+      "daily_limit_per_sender": 50000,
+      "requires_enhanced_due_diligence": false,
+      "notes": "Standard US-India remittance corridor"
+    },
+    "US-CN": {
+      "single_tx_limit": 10000,
+      "daily_limit_per_sender": 20000,
+      "requires_enhanced_due_diligence": false,
+      "notes": "Standard US-China corridor"
+    },
+    "US-MX": {
+      "single_tx_limit": 25000,
+      "daily_limit_per_sender": 50000,
+      "requires_enhanced_due_diligence": false,
+      "notes": "Standard US-Mexico remittance corridor"
+    },
+    "GB-IN": {
+      "single_tx_limit": 25000,
+      "daily_limit_per_sender": 50000,
+      "requires_enhanced_due_diligence": false,
+      "notes": "Standard UK-India corridor"
+    },
+    "US-NG": {
+      "single_tx_limit": 5000,
+      "daily_limit_per_sender": 10000,
+      "requires_enhanced_due_diligence": true,
+      "notes": "Enhanced monitoring — FATF grey list"
+    },
+    "US-PK": {
+      "single_tx_limit": 5000,
+      "daily_limit_per_sender": 10000,
+      "requires_enhanced_due_diligence": true,
+      "notes": "Enhanced monitoring — FATF grey list"
+    },
+    "AE-IN": {
+      "single_tx_limit": 25000,
+      "daily_limit_per_sender": 50000,
+      "requires_enhanced_due_diligence": false,
+      "notes": "High-volume UAE-India remittance corridor"
+    },
+    "US-RU": {
+      "single_tx_limit": 1000,
+      "daily_limit_per_sender": 2000,
+      "requires_enhanced_due_diligence": true,
+      "notes": "Restricted — OFAC Ukraine-related sanctions"
+    },
+    "US-IR": {
+      "single_tx_limit": 0,
+      "daily_limit_per_sender": 0,
+      "requires_enhanced_due_diligence": true,
+      "notes": "BLOCKED — Comprehensive OFAC sanctions"
+    },
+    "US-KP": {
+      "single_tx_limit": 0,
+      "daily_limit_per_sender": 0,
+      "requires_enhanced_due_diligence": true,
+      "notes": "BLOCKED — Comprehensive UN + OFAC sanctions"
+    },
+    "DEFAULT": {
+      "single_tx_limit": 10000,
+      "daily_limit_per_sender": 25000,
+      "requires_enhanced_due_diligence": false,
+      "notes": "Default corridor — unlisted country pairs"
+    }
+  }
+}
