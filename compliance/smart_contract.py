@@ -2,44 +2,37 @@
 compliance/smart_contract.py
 Orchestrates the full compliance pipeline for a transaction.
 
-Pipeline order:
+Pipeline order (UPDATED for Phase 2 ZKP):
+  0. ZKP identity verification — hard block (no proof = instant reject)
   1. Sanctions screening (OFAC + UN) — hard block
   2. Transfer limits (corridor rules + velocity limits) — hard block
   3. Fraud scoring (velocity + pattern analysis) — block if score >= threshold
 
-A transaction must pass ALL three checks to be approved.
-Results are attached to transaction.compliance_result.
+A transaction must pass ALL four checks to be approved.
 """
 
 import time
 from compliance import sanctions, limits, fraud_score
+from identity import zkp_verifier
 
 
 def run(transaction) -> dict:
-    """
-    Run all compliance checks on a transaction.
+    if hasattr(transaction, "to_dict"):
+        tx = transaction.to_dict()
+    else:
+        tx = transaction
 
-    Args:
-        transaction: Transaction object (with .to_dict()) or raw dict.
-
-    Returns:
-        compliance_result dict:
-        {
-            "approved": bool,
-            "timestamp": float,
-            "checks": {
-                "sanctions": dict,
-                "limits": dict,
-                "fraud_score": dict
-            },
-            "rejection_reason": str | None,   # first failing check reason
-            "risk_level": "LOW" | "MEDIUM" | "HIGH"
-        }
-
-    Side effects:
-        - Sets transaction.compliance_result if transaction has that attribute
-        - Calls limits.record_approved() and fraud_score.record_approved() on approval
-    """
+    # Step 0 — ZKP identity gate
+    zkp_result = zkp_verifier.verify(transaction)
+    if not zkp_result["passed"]:
+        result = _build_result(
+            approved=False,
+            rejection_reason=zkp_result["reason"],
+            checks={"zkp": zkp_result, "sanctions": None, "limits": None, "fraud_score": None},
+            risk_level="HIGH",
+        )
+        _attach(transaction, result)
+        return result
 
     # Step 1 — Sanctions
     sanctions_result = sanctions.check(transaction)
@@ -47,7 +40,7 @@ def run(transaction) -> dict:
         result = _build_result(
             approved=False,
             rejection_reason=sanctions_result["reason"],
-            checks={"sanctions": sanctions_result, "limits": None, "fraud_score": None},
+            checks={"zkp": zkp_result, "sanctions": sanctions_result, "limits": None, "fraud_score": None},
             risk_level="HIGH",
         )
         _attach(transaction, result)
@@ -59,7 +52,7 @@ def run(transaction) -> dict:
         result = _build_result(
             approved=False,
             rejection_reason=limits_result["reason"],
-            checks={"sanctions": sanctions_result, "limits": limits_result, "fraud_score": None},
+            checks={"zkp": zkp_result, "sanctions": sanctions_result, "limits": limits_result, "fraud_score": None},
             risk_level="HIGH",
         )
         _attach(transaction, result)
@@ -71,20 +64,20 @@ def run(transaction) -> dict:
         result = _build_result(
             approved=False,
             rejection_reason=fraud_result["reason"],
-            checks={"sanctions": sanctions_result, "limits": limits_result, "fraud_score": fraud_result},
+            checks={"zkp": zkp_result, "sanctions": sanctions_result, "limits": limits_result, "fraud_score": fraud_result},
             risk_level="HIGH",
         )
         _attach(transaction, result)
         return result
 
-    # All checks passed — record and approve
+    # All checks passed
     limits.record_approved(transaction)
     fraud_score.record_approved(transaction)
 
     result = _build_result(
         approved=True,
         rejection_reason=None,
-        checks={"sanctions": sanctions_result, "limits": limits_result, "fraud_score": fraud_result},
+        checks={"zkp": zkp_result, "sanctions": sanctions_result, "limits": limits_result, "fraud_score": fraud_result},
         risk_level=fraud_result["risk_level"],
     )
     _attach(transaction, result)
@@ -107,33 +100,29 @@ def _attach(transaction, result: dict):
 
 
 def explain(compliance_result: dict) -> str:
-    """
-    Return a human-readable summary of a compliance result.
-    """
     if compliance_result["approved"]:
         risk = compliance_result["risk_level"]
         fraud = compliance_result["checks"].get("fraud_score") or {}
         score = fraud.get("score", "N/A")
+        zkp = compliance_result["checks"].get("zkp") or {}
+        commitment = zkp.get("commitment", "N/A")
         lines = [
             "✅ APPROVED",
-            f"   Risk level : {risk}",
-            f"   Fraud score: {score}/100",
+            f"   Risk level  : {risk}",
+            f"   Fraud score : {score}/100",
+            f"   ZKP proof   : valid (commitment {str(commitment)[:16]}...)",
         ]
         fraud_rules = fraud.get("rules_triggered", [])
         if fraud_rules:
             lines.append("   Fraud flags (non-blocking):")
             for r in fraud_rules:
                 lines.append(f"     • {r['rule']}: {r['detail']}")
-        edd = compliance_result["checks"].get("limits", {}) or {}
+        edd = compliance_result["checks"].get("limits") or {}
         if edd.get("enhanced_due_diligence_required"):
             lines.append("   ⚠ Enhanced due diligence required for this corridor")
     else:
         reason = compliance_result["rejection_reason"]
-        lines = [
-            "❌ REJECTED",
-            f"   Reason: {reason}",
-        ]
-        # Detail which check failed
+        lines = ["❌ REJECTED", f"   Reason: {reason}"]
         for check_name, check_result in compliance_result["checks"].items():
             if check_result and not check_result.get("passed", True):
                 lines.append(f"   Failed check: {check_name.upper()}")

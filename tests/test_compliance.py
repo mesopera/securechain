@@ -51,7 +51,9 @@ class TestSanctions:
         tx = make_tx(sender=OFAC_BLOCKED, receiver=CLEAN_ADDR_B)
         result = sanctions.check(tx)
         assert result["passed"] is False
-        assert any(f["detail"].get("list") == "OFAC" for f in result["flags"])
+        assert any(
+            f["detail"].get("list") == "OFAC" for f in result["flags"]
+        )
 
     def test_un_sender_blocked(self):
         tx = make_tx(sender=UN_BLOCKED, receiver=CLEAN_ADDR_B)
@@ -191,6 +193,21 @@ class TestFraudScore:
 # ─────────────────────────────────────────────────────────────
 
 class TestSmartContract:
+    """
+    Tests the full compliance pipeline.
+    ZKP is monkeypatched to always pass — ZKP-specific tests live in test_zkp.py.
+    """
+
+    def setup_method(self, method):
+        """Patch zkp_verifier.verify to always return passed=True for these tests."""
+        from identity import zkp_verifier
+        self._orig_verify = zkp_verifier.verify
+        zkp_verifier.verify = lambda tx: {"passed": True, "check": "zkp", "reason": None, "commitment": "mock"}
+
+    def teardown_method(self, method):
+        from identity import zkp_verifier
+        zkp_verifier.verify = self._orig_verify
+
     def test_clean_transaction_approved(self):
         tx = make_tx(sender=CLEAN_ADDR_A, receiver=CLEAN_ADDR_B,
                      amount=200, sender_country="US", receiver_country="IN")

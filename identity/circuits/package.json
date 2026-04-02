@@ -1,0 +1,9 @@
+{
+    "name": "securechain-circuits",
+    "version": "1.0.0",
+    "description": "circom circuit dependencies for SecureChain ZKP",
+    "dependencies": {
+        "circomlib": "^2.0.5",
+        "circomlibjs": "^0.1.7"
+    }
+}
