@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  node1:
+    build: .
+    command: ["--id", "1", "--port", "5001", "--peers", "5002,5003,5004,5005"]
+    ports:
+      - "5001:5001"
+    volumes:
+      - node1_data:/app/data
+      - ./identity/build:/app/identity/build:ro
+    environment:
+      - NODE_ID=1
+    networks:
+      - securechain
+
+  node2:
+    build: .
+    command: ["--id", "2", "--port", "5002", "--peers", "5001,5003,5004,5005"]
+    ports:
+      - "5002:5002"
+    volumes:
+      - node2_data:/app/data
+      - ./identity/build:/app/identity/build:ro
+    environment:
+      - NODE_ID=2
+    networks:
+      - securechain
+
+  node3:
+    build: .
+    command: ["--id", "3", "--port", "5003", "--peers", "5001,5002,5004,5005"]
+    ports:
+      - "5003:5003"
+    volumes:
+      - node3_data:/app/data
+      - ./identity/build:/app/identity/build:ro
+    environment:
+      - NODE_ID=3
+    networks:
+      - securechain
+
+  node4:
+    build: .
+    command: ["--id", "4", "--port", "5004", "--peers", "5001,5002,5003,5005"]
+    ports:
+      - "5004:5004"
+    volumes:
+      - node4_data:/app/data
+      - ./identity/build:/app/identity/build:ro
+    environment:
+      - NODE_ID=4
+    networks:
+      - securechain
+
+  node5:
+    build: .
+    command: ["--id", "5", "--port", "5005", "--peers", "5001,5002,5003,5004"]
+    ports:
+      - "5005:5005"
+    volumes:
+      - node5_data:/app/data
+      - ./identity/build:/app/identity/build:ro
+    environment:
+      - NODE_ID=5
+    networks:
+      - securechain
+
+networks:
+  securechain:
+    driver: bridge
+
+volumes:
+  node1_data:
+  node2_data:
+  node3_data:
+  node4_data:
+  node5_data:
