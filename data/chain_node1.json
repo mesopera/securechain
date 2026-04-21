@@ -6,5 +6,199 @@
     "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
     "nonce": 0,
     "hash": "e1a9554655dfb8ae5488a0f5a3dca7b93f3e3326148b36c1bafc10398d03d41a"
+  },
+  {
+    "index": 1,
+    "timestamp": 1776755378.9609,
+    "transactions": [
+      {
+        "tx_id": "1343fb11e33def295a72a5b7738dddad46829b47b24d000d6a7a3b8e5b839773",
+        "sender": "8a3f4f563307a1346da939b685e8114cac64fe92bca3eaad13543bac35e25b2a",
+        "receiver": "ac217f3c7473ad05c50d41c627b61bb7fd8a5fee16d7bd72c70bf302f1bdde9b",
+        "amount": 750.0,
+        "currency": "USD",
+        "sender_country": "US",
+        "receiver_country": "IN",
+        "nonce": 1776755378426,
+        "timestamp": 1776755378.4264963,
+        "signature": "30440220154d49e7901ce8df65ff473e63275bba6fc2108cf60b5e5375299a306180c20f022053fc87809d087c3baf440af4abd79babf78e550784ec8b539b6a4cdb251b7b39",
+        "zkp_proof": {
+          "proof": {
+            "pi_a": [
+              "2458281139380388700296920946306646469386121794361412339431610398069196738103",
+              "13432099171492344713373586040998745415057696076061846376105059629598794022437",
+              "1"
+            ],
+            "pi_b": [
+              [
+                "12126858640472145181768729653835710191764927287002626590929549884386875946522",
+                "10848032587011800837241669528321901170620457015256404392727342114377394668231"
+              ],
+              [
+                "1900375314019811208356088624060848471497555150378331821529341898127017066317",
+                "14639089314299830403607103033551261788289070531145198560203637185169115278184"
+              ],
+              [
+                "1",
+                "0"
+              ]
+            ],
+            "pi_c": [
+              "9069775630954814284295783783492122706307178260744584031165384594943674356612",
+              "1831464188233997352763380267490359199645141552624130479394427462896304116119",
+              "1"
+            ],
+            "protocol": "groth16",
+            "curve": "bn128"
+          },
+          "public_signals": [
+            "9686767202873856309198748173882438258664731471871363606925995257895927840798",
+            "244261843872901074968639597289017836893954028917747526051384262404949271131"
+          ]
+        },
+        "compliance_result": {
+          "approved": true,
+          "timestamp": 1776755378.8721678,
+          "checks": {
+            "zkp": {
+              "passed": true,
+              "check": "zkp",
+              "reason": null,
+              "commitment": "9686767202873856309198748173882438258664731471871363606925995257895927840798"
+            },
+            "sanctions": {
+              "passed": true,
+              "check": "sanctions",
+              "flags": [],
+              "reason": null
+            },
+            "limits": {
+              "passed": true,
+              "check": "limits",
+              "flags": [],
+              "reason": null,
+              "corridor": "US-IN",
+              "corridor_limits": {
+                "single_tx_limit": 25000,
+                "daily_limit_per_sender": 50000,
+                "requires_enhanced_due_diligence": false,
+                "notes": "Standard US-India remittance corridor"
+              },
+              "enhanced_due_diligence_required": false
+            },
+            "fraud_score": {
+              "score": 0,
+              "risk_level": "LOW",
+              "passed": true,
+              "check": "fraud_score",
+              "rules_triggered": [],
+              "reason": null
+            }
+          },
+          "rejection_reason": null,
+          "risk_level": "LOW"
+        }
+      }
+    ],
+    "previous_hash": "e1a9554655dfb8ae5488a0f5a3dca7b93f3e3326148b36c1bafc10398d03d41a",
+    "nonce": 0,
+    "hash": "3b259c1ca851e449a6c5ce96037ce348a5fc77dab209362e01e6b861a95d4902"
+  },
+  {
+    "index": 2,
+    "timestamp": 1776755868.2872317,
+    "transactions": [
+      {
+        "tx_id": "06637af468abe738ec566f853e02f47473795e406fb29fa2e86b7b9b38ad37db",
+        "sender": "5d3413947b9dd545a0743e1cfb0cf09f7c3c276c4a7efa0df3aa42be0c310b42",
+        "receiver": "a89b72771465fdb792fbc0bf39435d9f4d579458f31041744d8bbb0531f59088",
+        "amount": 750.0,
+        "currency": "USD",
+        "sender_country": "US",
+        "receiver_country": "IN",
+        "nonce": 1776755867649,
+        "timestamp": 1776755867.6499317,
+        "signature": "30450221009a2506f1fe642746e4b40983f60d767220285c7c6d994ebdac164897e96c348902200a179ed8a642a2b4db8d11f21b2137ab98d962eeb5984abdba83045c63f84ca1",
+        "zkp_proof": {
+          "proof": {
+            "pi_a": [
+              "4722685143092735471210844764513332229864561781801048647393111696124456404094",
+              "6004160333447824219909795267451582983646398123588399350176226384550903688370",
+              "1"
+            ],
+            "pi_b": [
+              [
+                "14914358442974250968154832417825425685018321170634789141642993760545214380618",
+                "17867675901407965521218695261364342101041079812680573813239744357430997413503"
+              ],
+              [
+                "9304312547138681290276591622429101134303830493747566723859538400800157588684",
+                "16735390967262425850790309811470540622567354518745657111514577620380923857098"
+              ],
+              [
+                "1",
+                "0"
+              ]
+            ],
+            "pi_c": [
+              "6076257118179101732090077957881688617404408830713135928334653487908861705641",
+              "18059689907229511502213938978093364300031620609448389840261018828357314880322",
+              "1"
+            ],
+            "protocol": "groth16",
+            "curve": "bn128"
+          },
+          "public_signals": [
+            "5551859446333513265754323607135341515431940777727402707462473632829018795020",
+            "164676195710481587917301913527386902362302221110155141337544547523311186187"
+          ]
+        },
+        "compliance_result": {
+          "approved": true,
+          "timestamp": 1776755868.1760879,
+          "checks": {
+            "zkp": {
+              "passed": true,
+              "check": "zkp",
+              "reason": null,
+              "commitment": "5551859446333513265754323607135341515431940777727402707462473632829018795020"
+            },
+            "sanctions": {
+              "passed": true,
+              "check": "sanctions",
+              "flags": [],
+              "reason": null
+            },
+            "limits": {
+              "passed": true,
+              "check": "limits",
+              "flags": [],
+              "reason": null,
+              "corridor": "US-IN",
+              "corridor_limits": {
+                "single_tx_limit": 25000,
+                "daily_limit_per_sender": 50000,
+                "requires_enhanced_due_diligence": false,
+                "notes": "Standard US-India remittance corridor"
+              },
+              "enhanced_due_diligence_required": false
+            },
+            "fraud_score": {
+              "score": 0,
+              "risk_level": "LOW",
+              "passed": true,
+              "check": "fraud_score",
+              "rules_triggered": [],
+              "reason": null
+            }
+          },
+          "rejection_reason": null,
+          "risk_level": "LOW"
+        }
+      }
+    ],
+    "previous_hash": "3b259c1ca851e449a6c5ce96037ce348a5fc77dab209362e01e6b861a95d4902",
+    "nonce": 0,
+    "hash": "06938414b7280906818acbffe367e007bac8f76bbe4b6e24966bf6322a514511"
   }
 ]
